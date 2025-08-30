@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhatsApp On-Pain Tool - MRISBRAND</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    /* Global Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: 'Rajdhani', sans-serif;
+        background: #0a0a0a;
+        color: #fff;
+        min-height: 100vh;
+        overflow-x: hidden;
+        background-image: 
+            radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+            radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+    }
+
+    .cyber-grid {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: 
+            linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
+        background-size: 30px 30px;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .container { max-width: 1400px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+
+    /* Header */
+    .header { text-align: center; margin-bottom: 40px; position: relative; }
+    .header h1 {
+        font-family: 'Orbitron', monospace;
+        font-size: 2.5rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00, #00ffff);
+        background-size: 400% 400%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradientShift 3s ease-in-out infinite;
+    }
+    .header p {
+        font-size: 1rem;
+        color: #b0b0b0;
+        margin-top: 10px;
+        letter-spacing: 1px;
+    }
+
+    /* Main Tool Panel */
+    .tool-panel {
+        background: rgba(0,0,0,0.8);
+        backdrop-filter: blur(20px);
+        border-radius: 15px;
+        padding: 25px;
+        border: 1px solid rgba(0,255,255,0.3);
+        box-shadow: 0 0 30px rgba(0,255,255,0.1);
+        margin-bottom: 40px;
+    }
+
+    .tool-panel h2 {
+        font-family: 'Orbitron', monospace;
+        color: #00ffff;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .tool-panel input, .tool-panel button {
+        width: 100%;
+        padding: 15px;
+        font-size: 1rem;
+        border-radius: 12px;
+        border: 2px solid rgba(0,255,255,0.3);
+        background: rgba(0,0,0,0.6);
+        color: #fff;
+        margin-bottom: 15px;
+        outline: none;
+        transition: all 0.3s ease;
+    }
+    .tool-panel input:focus { border-color: #00ffff; }
+    .tool-panel button {
+        cursor: pointer;
+        font-family: 'Orbitron', monospace;
+        font-weight: 700;
+        background: linear-gradient(45deg, rgba(0,255,255,0.1), rgba(255,0,255,0.1));
+        color: #00ffff;
+        border: 2px solid #00ffff;
+    }
+    .tool-panel button:hover {
+        background: linear-gradient(45deg, rgba(0,255,255,0.2), rgba(255,0,255,0.2));
+        box-shadow: 0 0 25px rgba(0,255,255,0.4);
+    }
+
+    /* Video Section */
+    .video-grid { display: grid; gap: 15px; margin-bottom: 40px; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); }
+    .video-container {
+        background: rgba(0,0,0,0.8);
+        border-radius: 12px;
+        overflow: hidden;
+        aspect-ratio: 16/9;
+        border: 2px solid rgba(0,255,255,0.2);
+    }
+    .video-container iframe { width: 100%; height: 100%; border: none; }
+
+    /* Contact Section */
+    .contact {
+        text-align: center;
+        padding: 30px;
+        background: rgba(0,0,0,0.8);
+        border-radius: 15px;
+        border: 1px solid rgba(255,0,255,0.3);
+        backdrop-filter: blur(20px);
+    }
+    .contact h2 { color: #ff00ff; margin-bottom: 20px; }
+    .contact a {
+        display: inline-block;
+        padding: 12px 25px;
+        margin: 10px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-family: 'Orbitron', monospace;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #fff;
+        transition: all 0.3s ease;
+    }
+    .contact .whatsapp { background: linear-gradient(45deg,#25D366,#128C7E); border: 2px solid rgba(37,211,102,0.3);}
+    .contact .email { background: linear-gradient(45deg,#ff0040,#ff00ff); border: 2px solid rgba(255,0,255,0.3);}
+    .contact a:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,255,255,0.4); }
+
+    /* Footer */
+    .footer { text-align: center; padding: 20px; margin-top: 30px; font-family: 'Orbitron', monospace; color: #00ffff; }
+
+    /* Animations */
+    @keyframes gradientShift { 0%,100%{background-position:0% 50%;} 50%{background-position:100% 50%;} }
+
+    /* Responsive */
+    @media(max-width:768px){ .tool-panel{padding:20px;} .header h1{font-size:2rem;} }
+</style>
+</head>
+<body>
+<div class="cyber-grid"></div>
+<div class="container">
+
+    <div class="header">
+        <h1>WhatsApp On-Pain Tool</h1>
+        <p>MRISBRAND - Powerful custom WhatsApp tools</p>
+    </div>
+
+    <div class="tool-panel">
+        <h2>Enter Phone Number</h2>
+        <input type="text" id="phone-number" placeholder="e.g. +1234567890">
+        <button id="open-whatsapp">Open WhatsApp</button>
+    </div>
+
+    <div class="video-grid" id="video-grid">
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        </div>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/3JZ_D3ELwOQ" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div class="contact">
+        <h2>Contact Us</h2>
+        <a href="https://wa.me/your-number" class="whatsapp" target="_blank">WhatsApp</a>
+        <a href="mailto:your-email@example.com" class="email">Email</a>
+    </div>
+
+    <div class="footer">
+        &copy; 2025 MRISBRAND. All rights reserved.
+    </div>
+
+</div>
+
+<script>
+document.getElementById('open-whatsapp').addEventListener('click', () => {
+    const phone = document.getElementById('phone-number').value.trim();
+    if(phone){
+        window.open(`https://wa.me/${phone}`, '_blank');
+    } else {
+        alert("Please enter a valid phone number!");
+    }
+});
+</script>
+
+</body>
+</html>
